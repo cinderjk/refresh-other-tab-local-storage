@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab 1</title>
+</head>
+<body>
+
+    <button id="saveButton">Simpan</button>
+
+    <script>
+        document.getElementById('saveButton').addEventListener('click', function() {
+            // Menyimpan status refresh di localStorage
+            localStorage.setItem('refreshStatus', 'true');
+
+            // Membuat dan mengirimkan event kustom bernama 'refreshEvent'
+            var refreshEvent = new Event('refreshEvent');
+            console.log('clicked');
+            window.dispatchEvent(refreshEvent);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab 2</title>
+</head>
+<body>
+
+    <p>Tab 2 Content</p>
+    <div id="loadingMessage" style="display: none;">Loading...</div>
+
+    <script>
+        // Memeriksa status refresh di localStorage
+        function checkRefreshStatus() {
+            var refreshStatus = localStorage.getItem('refreshStatus');
+            
+            if (refreshStatus === 'true') {
+                console.log('%cREFRESHING', 'color: red; font-size: 48px;');
+                // Jika status refresh adalah 'true', lakukan refresh
+                showLoading();
+                setTimeout(function() {
+                    hideLoading();
+                    // Set status kembali ke 'false' agar tidak memicu refresh lagi
+                    localStorage.setItem('refreshStatus', 'false');
+                    // reload halaman
+                    location.reload();
+                }, 500);
+            }
+        }
+
+        function showLoading() {
+            // Menampilkan elemen loading di Tab 2 (misalnya, tampilkan pesan atau spinner)
+            document.getElementById('loadingMessage').style.display = 'block';
+        }
+
+        function hideLoading() {
+            // Menyembunyikan elemen loading di Tab 2 (misalnya, sembunyikan pesan atau spinner)
+            document.getElementById('loadingMessage').style.display = 'none';
+        }
+
+        // Memanggil fungsi checkRefreshStatus saat halaman dimuat
+        checkRefreshStatus();
+
+        // Mendengarkan event 'storage' untuk mendeteksi perubahan di localStorage
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'refreshStatus') {
+                // Jika ada perubahan pada 'refreshStatus', panggil checkRefreshStatus
+                checkRefreshStatus();
+            }
+        });
+    </script>
+
+</body>
+</html>
